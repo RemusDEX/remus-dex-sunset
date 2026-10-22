@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Remus DEX - Sunset</title>
+  <meta name="description" content="Remus DEX was sunset on 1 October 2026. The smart contracts on Starknet remain deployed and functional.">
+  <link rel="icon" href="assets/favicon.png">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Remus DEX - Sunset">
+  <meta property="og:description" content="Remus DEX was sunset on 1 October 2026. The smart contracts on Starknet remain deployed and functional.">
+  <meta property="og:image" content="assets/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Space+Grotesk:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: rgb(18, 44, 95);
+      --navy-deep: rgb(7, 24, 57);
+      --light: rgb(242, 242, 242);
+      --gold: rgb(255, 192, 118);
+      --line: rgba(7, 24, 57, .1);
+      --muted: rgba(7, 24, 57, .7);
+      --gutter: 28px;
+    }
+    * { box-sizing: border-box; margin: 0; }
+    html, body { background: var(--light); color: var(--navy); }
+    body {
+      font-family: "Inter", sans-serif;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    a { color: inherit; }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 24px var(--gutter);
+      border-bottom: 1px solid var(--line);
+      position: relative;
+      z-index: 2;
+    }
+    header .logo { display: block; width: 132px; }
+    header .logo img { width: 100%; display: block; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 14px;
+      text-transform: uppercase;
+      text-decoration: none;
+      letter-spacing: .01em;
+      padding: 12px 18px;
+      border-radius: 999px;
+      background: var(--navy);
+      color: var(--light);
+      border: 1px solid var(--navy);
+      cursor: pointer;
+      transition: background .2s, color .2s;
+    }
+    .btn:hover { background: var(--navy-deep); }
+    .btn.ghost { background: transparent; color: var(--navy); }
+    .btn.ghost:hover { background: var(--navy); color: var(--light); }
+
+    .hero {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 var(--gutter) 48px;
+      min-height: 640px;
+    }
+    /* vertical grid lines, as on the original landing page */
+    .grid {
+      position: absolute;
+      inset: 0 var(--gutter);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      pointer-events: none;
+    }
+    .grid span { border-left: 1px solid var(--line); }
+    .grid span:last-child { border-right: 1px solid var(--line); }
+
+    .fox {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: min(1281px, 95vw);
+      opacity: .9;
+      pointer-events: none;
+    }
+    .fox img { width: 100%; display: block; }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 3fr 1fr;
+      gap: 32px;
+      align-items: end;
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 12px;
+      text-transform: uppercase;
+      padding: 6px 12px;
+      border: 1px solid var(--navy);
+      border-radius: 999px;
+      margin-bottom: 20px;
+      background: var(--light);
+    }
+    .pill::before {
+      content: "";
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+    h1 {
+      font-family: "Space Grotesk", sans-serif;
+      font-weight: 400;
+      font-size: clamp(44px, 6.4vw, 92px);
+      line-height: 104%;
+      letter-spacing: -.04em;
+    }
+    .side p {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 15px;
+      line-height: 1.45;
+      margin-bottom: 20px;
+    }
+    .side .actions { display: flex; flex-wrap: wrap; gap: 10px; }
+
+    .contract {
+      background: var(--navy);
+      color: var(--light);
+      padding: 64px var(--gutter);
+    }
+    .contract-inner {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 32px;
+      align-items: start;
+    }
+    .contract h2 {
+      font-family: "Space Grotesk", sans-serif;
+      font-weight: 400;
+      font-size: clamp(28px, 3.4vw, 44px);
+      line-height: 112%;
+      letter-spacing: -.03em;
+    }
+    .contract p {
+      color: rgba(242, 242, 242, .7);
+      font-size: 15px;
+      line-height: 1.5;
+      margin-bottom: 24px;
+    }
+    .address {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(242, 242, 242, .05);
+      border: 1px solid rgba(242, 242, 242, .2);
+      border-radius: 16px;
+      padding: 16px 18px;
+      margin-bottom: 24px;
+    }
+    .address .label {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 12px;
+      text-transform: uppercase;
+      color: var(--gold);
+      flex-shrink: 0;
+    }
+    .address code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 14px;
+      overflow-wrap: anywhere;
+      flex: 1;
+    }
+    .copy {
+      background: none;
+      border: 1px solid rgba(242, 242, 242, .3);
+      color: var(--light);
+      border-radius: 999px;
+      padding: 6px 12px;
+      font: 12px "Space Grotesk", sans-serif;
+      text-transform: uppercase;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .copy:hover { border-color: var(--light); }
+    .contract .btn { background: var(--gold); color: var(--navy-deep); border-color: var(--gold); }
+    .contract .btn:hover { background: var(--light); border-color: var(--light); }
+
+    footer {
+      background: var(--navy-deep);
+      color: rgba(242, 242, 242, .5);
+      padding: 24px var(--gutter);
+      display: flex;
+      justify-content: space-between;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 767px) {
+      :root { --gutter: 16px; }
+      header .logo { width: 108px; }
+      .grid { grid-template-columns: repeat(2, 1fr); }
+      .fox { width: 130vw; right: -15vw; top: 24px; }
+      .hero { min-height: 600px; padding-bottom: 32px; }
+      .hero-content, .contract-inner { grid-template-columns: 1fr; }
+      .address { flex-wrap: wrap; }
+      footer { flex-direction: column; gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a class="logo" href="./" aria-label="Remus"><img src="assets/logo.svg" alt="Remus"></a>
+    <a class="btn js-starkscan" href="#" target="_blank" rel="noopener">View contract</a>
+  </header>
+
+  <section class="hero">
+    <div class="grid" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+    <div class="fox" aria-hidden="true"><img src="assets/fox.svg" alt=""></div>
+    <div class="hero-content">
+      <div>
+        <div class="pill">Sunset on 1 October 2026</div>
+        <h1>Remus DEX has been sunset.</h1>
+      </div>
+      <div class="side">
+        <p>The Remus DEX app and website were shut down on 1 October 2026. The smart contracts remain deployed on Starknet and are still fully functional.</p>
+        <div class="actions">
+          <a class="btn js-starkscan" href="#" target="_blank" rel="noopener">View on Starkscan</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contract">
+    <div class="contract-inner">
+      <h2>Smart contracts are still live</h2>
+      <div>
+        <p>Open orders, balances and matched proceeds can still be managed by interacting with the contract directly, through a block explorer or your own tooling.</p>
+        <div class="address">
+          <span class="label">Mainnet</span>
+          <code class="js-address"></code>
+          <button class="copy" type="button">Copy</button>
+        </div>
+        <a class="btn js-starkscan" href="#" target="_blank" rel="noopener">Open on Starkscan ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>Trade like a legend</span>
+    <span>© 2026, Remus</span>
+  </footer>
+
+  <script>
+    // Remus DEX mainnet contract address on Starknet
+    const CONTRACT = "0xREPLACE_WITH_MAINNET_CONTRACT_ADDRESS";
+    const url = "https://starkscan.co/contract/" + CONTRACT;
+
+    document.querySelectorAll(".js-starkscan").forEach((a) => (a.href = url));
+    document.querySelector(".js-address").textContent = CONTRACT;
+
+    const copy = document.querySelector(".copy");
+    copy.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(CONTRACT);
+        copy.textContent = "Copied";
+      } catch {
+        copy.textContent = "Failed";
+      }
+      setTimeout(() => (copy.textContent = "Copy"), 1500);
+    });
+  </script>
+</body>
+</html>
